@@ -11,3 +11,5 @@ class AttemptAnswer extends BoardEvent {
   final Attempt attempt;
   AttemptAnswer(this.attempt);
 }
+
+class Replay extends BoardEvent {}

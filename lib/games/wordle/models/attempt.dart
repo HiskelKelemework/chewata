@@ -2,11 +2,29 @@ import 'package:chewata/games/wordle/models/result.dart';
 
 class Attempt {
   final List<String> letters;
+  final String correctWord;
   final bool temporary;
+  late final List<Result> results;
 
-  const Attempt({required this.letters, this.temporary = false});
+  Attempt({
+    required this.letters,
+    required this.correctWord,
+    this.temporary = false,
+  }) {
+    results = _toResults(correctWord);
+  }
 
-  List<Result> toResults(String correctWord) {
+  bool get correct {
+    for (final result in results) {
+      if (!result.exactCorrect) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  List<Result> _toResults(String correctWord) {
     if (temporary) {
       return letters.map((e) => Result(text: e, temporary: true)).toList();
     }

@@ -11,7 +11,9 @@ class Tile extends StatelessWidget {
         ? Colors.green
         : content.outOfPlaceCorrect
             ? const Color.fromARGB(255, 192, 174, 14)
-            : Colors.grey;
+            : content.temporary
+                ? Colors.grey
+                : Colors.grey.shade700;
 
     return Container(
       color: bgColor,

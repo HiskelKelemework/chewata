@@ -8,7 +8,7 @@ class BoardUpdated extends BoardState {
   late List<List<Result>> _results;
 
   BoardUpdated({required this.correctWord, required this.states}) {
-    _results = states.map((attempt) => attempt.toResults(correctWord)).toList();
+    _results = states.map((attempt) => attempt.results).toList();
   }
 
   Result resultOf(int row, int col) {
@@ -18,3 +18,7 @@ class BoardUpdated extends BoardState {
     return _results[row][col];
   }
 }
+
+class GameWon extends BoardState {}
+
+class GameLost extends BoardState {}

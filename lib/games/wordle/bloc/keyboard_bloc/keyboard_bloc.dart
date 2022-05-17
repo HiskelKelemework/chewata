@@ -19,18 +19,41 @@ class KeyboardBloc extends Bloc<KeyboardEvent, KeyboardState> {
     if (_attempt.length == _boardBloc.maxWordLength) return;
 
     _attempt.add(event.letter);
-    _boardBloc.add(DisplayLetters(Attempt(letters: _attempt, temporary: true)));
+    _boardBloc.add(
+      DisplayLetters(
+        Attempt(
+          letters: _attempt,
+          temporary: true,
+          correctWord: _boardBloc.correctWord,
+        ),
+      ),
+    );
   }
 
   _onEnter(EnterEvent event, Emitter emit) {
     if (_attempt.length != _boardBloc.maxWordLength) return;
-    _boardBloc.add(AttemptAnswer(Attempt(letters: _attempt.toList())));
+    _boardBloc.add(
+      AttemptAnswer(
+        Attempt(
+          letters: _attempt.toList(),
+          correctWord: _boardBloc.correctWord,
+        ),
+      ),
+    );
     _attempt.clear();
   }
 
   _onDelete(DeleteEvent event, Emitter emit) {
     if (_attempt.isEmpty) return;
     _attempt.removeLast();
-    _boardBloc.add(DisplayLetters(Attempt(letters: _attempt)));
+    _boardBloc.add(
+      DisplayLetters(
+        Attempt(
+          letters: _attempt,
+          temporary: true,
+          correctWord: _boardBloc.correctWord,
+        ),
+      ),
+    );
   }
 }

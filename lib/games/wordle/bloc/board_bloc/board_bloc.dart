@@ -14,6 +14,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
         ) {
     on<DisplayLetters>(_onDisplayLetters);
     on<AttemptAnswer>(_onAttemptAnswer);
+    on<Replay>(_onReplay);
   }
 
   final String correctWord;
@@ -34,9 +35,24 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
 
   _onAttemptAnswer(AttemptAnswer event, Emitter emit) {
     if (_maxAttemptsGuard()) return;
+    if (event.attempt.letters.length != maxWordLength) return;
+
     _attempts.add(event.attempt);
     emit(BoardUpdated(correctWord: correctWord, states: _attempts));
-    // correct answer and generate a results object.
+
+    if (event.attempt.correct) {
+      emit(GameWon());
+      return;
+    }
+
+    if (_attempts.length == maxAttempts) {
+      emit(GameLost());
+    }
+  }
+
+  _onReplay(Replay event, Emitter emit) {
+    _attempts.clear();
+    emit(BoardUpdated(correctWord: correctWord, states: _attempts));
   }
 
   bool _maxAttemptsGuard() => _attempts.length == maxAttempts;

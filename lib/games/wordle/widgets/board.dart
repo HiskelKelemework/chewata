@@ -36,14 +36,16 @@ class Board extends StatelessWidget {
               itemCount: 30,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 5,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
               ),
               itemBuilder: (_, int i) {
                 final row = i ~/ boardBloc.maxWordLength;
                 final col = i % boardBloc.maxWordLength;
                 final content = state.resultOf(row, col);
-                return Tile(content: content);
+
+                return Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Tile(content: content),
+                );
               },
             );
           },

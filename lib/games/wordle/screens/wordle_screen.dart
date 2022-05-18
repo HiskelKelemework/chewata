@@ -14,15 +14,21 @@ class WordleScreen extends StatelessWidget {
         BlocProvider(create: (_) => _boardBloc),
         BlocProvider(create: (_) => KeyboardBloc(_boardBloc)),
       ],
-      child: Scaffold(
-        body: Center(
-          child: Column(
-            children: const <Widget>[
-              SizedBox(height: 50),
-              Board(),
-              SizedBox(height: 50),
-              Keyboard(),
-            ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Scaffold(
+          body: Center(
+            child: Column(
+              children: const <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text("Wordle", style: TextStyle(fontSize: 28)),
+                ),
+                Board(),
+                SizedBox(height: 50),
+                Keyboard(),
+              ],
+            ),
           ),
         ),
       ),

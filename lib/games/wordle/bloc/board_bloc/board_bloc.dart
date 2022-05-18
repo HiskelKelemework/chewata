@@ -5,22 +5,25 @@ part 'board_state.dart';
 part 'board_event.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
-  BoardBloc(this.correctWord)
+  BoardBloc(this._wordsDb)
       : super(
           BoardUpdated(
-            correctWord: correctWord,
+            correctWord: _wordsDb.nextWord,
             states: <Attempt>[],
           ),
         ) {
+    _correctWord = _wordsDb.currentWord!;
+
     on<DisplayLetters>(_onDisplayLetters);
     on<AttemptAnswer>(_onAttemptAnswer);
     on<Replay>(_onReplay);
   }
 
-  final String correctWord;
+  late String _correctWord;
+  String get correctWord => _correctWord;
   final int maxWordLength = 5;
   final int maxAttempts = 6;
-
+  final WordsDB _wordsDb;
   final List<Attempt> _attempts = [];
 
   _onDisplayLetters(DisplayLetters event, Emitter emit) {
@@ -52,6 +55,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
 
   _onReplay(Replay event, Emitter emit) {
     _attempts.clear();
+    _correctWord = _wordsDb.nextWord;
     emit(BoardUpdated(correctWord: correctWord, states: _attempts));
   }
 

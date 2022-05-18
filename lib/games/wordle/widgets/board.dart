@@ -11,46 +11,46 @@ class Board extends StatelessWidget {
   Widget build(BuildContext context) {
     final boardBloc = BlocProvider.of<BoardBloc>(context);
 
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 350),
-      child: AspectRatio(
-        aspectRatio: boardBloc.maxWordLength / boardBloc.maxAttempts,
-        child: BlocConsumer<BoardBloc, BoardState>(
-          listenWhen: (_, current) => current is GameWon || current is GameLost,
-          listener: (_, BoardState state) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) {
-                return state is GameWon
-                    ? GameWonPopup(boardBloc: boardBloc)
-                    : GameLostPopup(boardBloc: boardBloc);
-              },
-            );
+    return BlocConsumer<BoardBloc, BoardState>(
+      listenWhen: (_, current) => current is GameWon || current is GameLost,
+      listener: (_, BoardState state) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) {
+            return state is GameWon
+                ? GameWonPopup(boardBloc: boardBloc)
+                : GameLostPopup(boardBloc: boardBloc);
           },
-          buildWhen: (_, current) => current is BoardUpdated,
-          builder: (_, BoardState state) {
-            state as BoardUpdated;
+        );
+      },
+      buildWhen: (_, current) => current is BoardUpdated,
+      builder: (_, BoardState state) {
+        state as BoardUpdated;
 
-            return GridView.builder(
-              itemCount: 30,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-              ),
-              itemBuilder: (_, int i) {
-                final row = i ~/ boardBloc.maxWordLength;
-                final col = i % boardBloc.maxWordLength;
-                final content = state.resultOf(row, col);
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 380,
+            maxHeight: 456,
+          ),
+          child: GridView.builder(
+            itemCount: 30,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+            ),
+            itemBuilder: (_, int i) {
+              final row = i ~/ boardBloc.maxWordLength;
+              final col = i % boardBloc.maxWordLength;
+              final content = state.resultOf(row, col);
 
-                return Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: Tile(content: content),
-                );
-              },
-            );
-          },
-        ),
-      ),
+              return Padding(
+                padding: const EdgeInsets.all(2),
+                child: Tile(content: content),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

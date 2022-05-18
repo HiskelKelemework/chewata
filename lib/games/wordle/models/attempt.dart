@@ -52,7 +52,12 @@ class Attempt {
     for (int i = 0; i < results.length; i++) {
       if (results[i] != null) continue;
 
-      final letterOutOfPlace = (correctLetterCount[letters[i]] ?? 0) > 0;
+      final letterCount = (correctLetterCount[letters[i]] ?? 0);
+      final letterOutOfPlace = letterCount > 0;
+      if (letterOutOfPlace) {
+        correctLetterCount[letters[i]] = letterCount - 1;
+      }
+
       results[i] = Result(
         text: letters[i],
         outOfPlaceCorrect: letterOutOfPlace,

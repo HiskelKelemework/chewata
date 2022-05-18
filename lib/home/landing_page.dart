@@ -15,33 +15,35 @@ class _HomePageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        allowImplicitScrolling: true,
-        controller: pageController,
-        onPageChanged: (int i) => setState(() => currentIndex = i),
-        children: pages,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (int i) {
-          setState(() => currentIndex = i);
-          pageController.animateToPage(
-            i,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.easeIn,
-          );
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.games),
-            label: "Games",
-          ),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: PageView(
+          allowImplicitScrolling: true,
+          controller: pageController,
+          onPageChanged: (int i) => setState(() => currentIndex = i),
+          children: pages,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (int i) {
+            setState(() => currentIndex = i);
+            pageController.animateToPage(
+              i,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeIn,
+            );
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.games),
+              label: "Games",
+            ),
+          ],
+        ),
       ),
     );
   }

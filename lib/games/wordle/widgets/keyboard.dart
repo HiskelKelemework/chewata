@@ -95,7 +95,7 @@ class KeyUnit extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 60,
+        height: 40,
         margin: const EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
           color: Colors.grey,

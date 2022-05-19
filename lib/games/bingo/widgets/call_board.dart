@@ -12,7 +12,7 @@ class CallBoard extends StatelessWidget {
     final boardBloc = BlocProvider.of<BoardBloc>(context);
 
     return Container(
-      height: 70,
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       decoration: BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.circular(8),
@@ -34,33 +34,63 @@ class CallBoard extends StatelessWidget {
             });
           }
 
-          return ListView(
-            scrollDirection: Axis.horizontal,
-            controller: scrollController,
-            children: _calls
-                .map(
-                  (c) => Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 8,
-                      ),
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                        color: cellColor(c.group),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        "${c.group}-${c.val}",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
+          return Column(
+            children: [
+              SizedBox(
+                height: 40,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  controller: scrollController,
+                  children: _calls
+                      .map(
+                        (c) => Center(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 6,
+                            ),
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                              color: cellColor(c.group),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              "${c.group}-${c.val}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      )
+                      .toList(),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                decoration: BoxDecoration(
+                  color: _calls.isEmpty
+                      ? Colors.transparent
+                      : cellColor(_calls.last.group),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  _calls.isEmpty
+                      ? ""
+                      : "${_calls.last.group}-${_calls.last.val}",
+                  style: const TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
                   ),
-                )
-                .toList(),
+                ),
+              ),
+            ],
           );
         },
       ),

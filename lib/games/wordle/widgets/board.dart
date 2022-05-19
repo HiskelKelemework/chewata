@@ -29,25 +29,25 @@ class Board extends StatelessWidget {
         state as BoardUpdated;
 
         return Container(
-          constraints: const BoxConstraints(
-            maxWidth: 380,
-            maxHeight: 456,
-          ),
-          child: GridView.builder(
-            itemCount: 30,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-            ),
-            itemBuilder: (_, int i) {
-              final row = i ~/ boardBloc.maxWordLength;
-              final col = i % boardBloc.maxWordLength;
-              final content = state.resultOf(row, col);
+          constraints: const BoxConstraints(maxWidth: 380),
+          child: AspectRatio(
+            aspectRatio: boardBloc.maxWordLength / boardBloc.maxAttempts,
+            child: GridView.builder(
+              itemCount: 30,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+              ),
+              itemBuilder: (_, int i) {
+                final row = i ~/ boardBloc.maxWordLength;
+                final col = i % boardBloc.maxWordLength;
+                final content = state.resultOf(row, col);
 
-              return Padding(
-                padding: const EdgeInsets.all(2),
-                child: Tile(content: content),
-              );
-            },
+                return Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Tile(content: content),
+                );
+              },
+            ),
           ),
         );
       },

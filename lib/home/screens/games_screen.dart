@@ -46,6 +46,15 @@ class GamesScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: [
                   _buildGameLink(
+                    gameTitle: "Bingo",
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const BingoScreen()),
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  _buildGameLink(
                     gameTitle: "Wordle",
                     onPressed: () {
                       Navigator.of(context).push(

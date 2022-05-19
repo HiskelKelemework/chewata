@@ -1,1 +1,1 @@
-export 'screens/index.dart';
+export 'screens/wordle_screen.dart';

@@ -19,11 +19,11 @@ class GameLostPopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Game lost"),
+                const Text("Correct solution was"),
+                Text(boardBloc.correctWord),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    boardBloc.add(Replay());
-                  },
+                  onPressed: () => boardBloc.add(Replay()),
                   child: const Text("Replay"),
                 ),
                 const SizedBox(height: 10),

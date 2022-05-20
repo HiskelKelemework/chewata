@@ -17,6 +17,7 @@ class CallBoard extends StatelessWidget {
         color: Colors.grey,
         borderRadius: BorderRadius.circular(8),
       ),
+      constraints: const BoxConstraints(maxWidth: 450),
       child: BlocBuilder<CallBoardBloc, CallBoardState>(
         bloc: boardBloc.callBoardBloc,
         buildWhen: (_, c) => c is CallMade,

@@ -5,7 +5,7 @@ part 'board_event.dart';
 part 'board_state.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
-  BoardBloc() : super(BoardUpdated(board: demoBoard)) {
+  BoardBloc(Board board) : super(BoardUpdated(board: board)) {
     on<CellClicked>(_onCellClicked);
     on<_GameOver>(_onGameOver);
 

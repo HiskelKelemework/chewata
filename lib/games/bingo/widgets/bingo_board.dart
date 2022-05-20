@@ -8,10 +8,7 @@ class BingoBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 380,
-        maxHeight: 456,
-      ),
+      constraints: const BoxConstraints(maxWidth: 380),
       child: BlocConsumer<BoardBloc, BoardState>(
         listenWhen: (_, current) => current is GameWon || current is GameOver,
         listener: (_, state) {
@@ -39,18 +36,21 @@ class BingoBoard extends StatelessWidget {
         builder: (_, BoardState state) {
           state as BoardUpdated;
 
-          return GridView.builder(
-            itemCount: 30,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-            ),
-            itemBuilder: (_, int i) {
-              final row = i ~/ 5;
-              final col = i % 5;
-              final BoardCell cell = state.board.columns[col].elements[row];
+          return AspectRatio(
+            aspectRatio: 5 / 6,
+            child: GridView.builder(
+              itemCount: 30,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+              ),
+              itemBuilder: (_, int i) {
+                final row = i ~/ 5;
+                final col = i % 5;
+                final BoardCell cell = state.board.columns[col].elements[row];
 
-              return Tile(cellData: cell, row: row, col: col);
-            },
+                return Tile(cellData: cell, row: row, col: col);
+              },
+            ),
           );
         },
       ),

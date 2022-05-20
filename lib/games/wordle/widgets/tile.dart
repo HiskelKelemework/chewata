@@ -16,7 +16,10 @@ class Tile extends StatelessWidget {
                 : Colors.grey.shade700;
 
     return Container(
-      color: bgColor,
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
       child: Center(
         child: Text(
           content.text,

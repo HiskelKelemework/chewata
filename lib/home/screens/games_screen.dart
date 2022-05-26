@@ -6,25 +6,27 @@ class GamesScreen extends StatelessWidget {
 
   Widget _buildGameLink({
     required String gameTitle,
-    required Function() onPressed,
+    required Function(BuildContext) onPressed,
   }) {
-    return InkWell(
-      onTap: onPressed,
-      hoverColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      child: Column(
-        children: [
-          const Expanded(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: CircleAvatar(),
+    return LayoutBuilder(builder: (BuildContext ctx, _) {
+      return InkWell(
+        onTap: () => onPressed(ctx),
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: Column(
+          children: [
+            const Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: CircleAvatar(),
+              ),
             ),
-          ),
-          Text(gameTitle),
-        ],
-      ),
-    );
+            Text(gameTitle),
+          ],
+        ),
+      );
+    });
   }
 
   @override
@@ -47,8 +49,8 @@ class GamesScreen extends StatelessWidget {
                 children: [
                   _buildGameLink(
                     gameTitle: "Bingo",
-                    onPressed: () {
-                      Scaffold.of(context).showBottomSheet(
+                    onPressed: (ctx) {
+                      Scaffold.of(ctx).showBottomSheet(
                         (_) => WaitingRoomsSheet(
                           rooms: [
                             Room(id: "bingo:5", name: "Bale 5"),
@@ -65,8 +67,8 @@ class GamesScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   _buildGameLink(
                     gameTitle: "Wordle",
-                    onPressed: () {
-                      Scaffold.of(context).showBottomSheet(
+                    onPressed: (BuildContext ctx) {
+                      Scaffold.of(ctx).showBottomSheet(
                         (_) => WaitingRoomsSheet(
                           rooms: [
                             Room(id: "wordle:5", name: "Bale 5"),

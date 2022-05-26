@@ -7,37 +7,46 @@ class MessageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainAxisAlignment alignment;
+    Alignment alignment;
     Color color = Colors.blue;
+    EdgeInsets margin = const EdgeInsets.only(bottom: 8);
 
     switch (msg.senderType) {
       case Sender.own:
-        alignment = MainAxisAlignment.end;
+        alignment = Alignment.centerRight;
         color = Colors.blue;
+        margin = margin.copyWith(left: 50);
         break;
       case Sender.other:
-        alignment = MainAxisAlignment.start;
+        alignment = Alignment.centerLeft;
         color = Colors.blue;
+        margin = margin.copyWith(right: 50);
         break;
       default:
-        alignment = MainAxisAlignment.center;
+        alignment = Alignment.center;
         color = Colors.grey;
+        margin = margin.copyWith(left: 30, right: 30);
         break;
     }
 
-    return Row(
-      mainAxisAlignment: alignment,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(8),
+    return Align(
+      alignment: alignment,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        margin: margin,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(
+            msg.senderType == Sender.server ? 100 : 8,
           ),
-          child: Text(msg.text),
         ),
-      ],
+        child: Text(
+          msg.text,
+          textAlign: msg.senderType == Sender.server
+              ? TextAlign.center
+              : TextAlign.left,
+        ),
+      ),
     );
   }
 }

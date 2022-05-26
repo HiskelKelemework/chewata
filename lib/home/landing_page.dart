@@ -11,7 +11,7 @@ class LandingPage extends StatefulWidget {
 class _HomePageState extends State<LandingPage> {
   int currentIndex = 0;
   final pageController = PageController();
-  final pages = const [HomeScreen(), GamesScreen()];
+  final pages = const [HomeScreen(), GamesScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,10 @@ class _HomePageState extends State<LandingPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.games),
               label: "Games",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
             ),
           ],
         ),

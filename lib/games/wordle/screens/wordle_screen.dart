@@ -16,10 +16,10 @@ class WordleScreen extends StatelessWidget {
         BlocProvider(create: (_) => KeyboardBloc(_boardBloc)),
       ],
       child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Scaffold(
-            body: Center(
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
               child: Column(
                 children: const <Widget>[
                   Padding(

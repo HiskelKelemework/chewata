@@ -1,4 +1,4 @@
-import 'package:chewata/games/index.dart';
+import 'package:chewata/home/index.dart';
 import 'package:flutter/material.dart';
 
 class GamesScreen extends StatelessWidget {
@@ -48,8 +48,17 @@ class GamesScreen extends StatelessWidget {
                   _buildGameLink(
                     gameTitle: "Bingo",
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const BingoScreen()),
+                      Scaffold.of(context).showBottomSheet(
+                        (_) => WaitingRoomsSheet(
+                          rooms: [
+                            Room(id: "bingo:5", name: "Bale 5"),
+                            Room(id: "bingo:10", name: "Bale 10"),
+                            Room(id: "bingo:15", name: "Bale 15"),
+                            Room(id: "bingo:25", name: "Bale 25"),
+                            Room(id: "bingo:50", name: "Bale 50"),
+                            Room(id: "bingo:100", name: "Bale 100"),
+                          ],
+                        ),
                       );
                     },
                   ),
@@ -57,8 +66,17 @@ class GamesScreen extends StatelessWidget {
                   _buildGameLink(
                     gameTitle: "Wordle",
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => WordleScreen()),
+                      Scaffold.of(context).showBottomSheet(
+                        (_) => WaitingRoomsSheet(
+                          rooms: [
+                            Room(id: "wordle:5", name: "Bale 5"),
+                            Room(id: "wordle:10", name: "Bale 10"),
+                            Room(id: "wordle:15", name: "Bale 15"),
+                            Room(id: "wordle:25", name: "Bale 25"),
+                            Room(id: "wordle:50", name: "Bale 50"),
+                            Room(id: "wordle:100", name: "Bale 100"),
+                          ],
+                        ),
                       );
                     },
                   ),

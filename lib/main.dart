@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ConnectionBloc()..add(Connect()),
+      create: (_) => ConnectionBloc(Connecting())..add(Connect()),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

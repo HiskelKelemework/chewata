@@ -2,6 +2,8 @@ part of 'waiting_room_bloc.dart';
 
 abstract class WaitingRoomEvent {}
 
+class _JoinedWaitingRoom extends WaitingRoomEvent {}
+
 class _JoinedGame extends WaitingRoomEvent {}
 
 class _LeftGame extends WaitingRoomEvent {}

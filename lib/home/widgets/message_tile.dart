@@ -32,12 +32,12 @@ class MessageTile extends StatelessWidget {
     return Align(
       alignment: alignment,
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         margin: margin,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(
-            msg.senderType == Sender.server ? 100 : 8,
+            msg.senderType == Sender.server ? 100 : 20,
           ),
         ),
         child: Text(
@@ -45,6 +45,7 @@ class MessageTile extends StatelessWidget {
           textAlign: msg.senderType == Sender.server
               ? TextAlign.center
               : TextAlign.left,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

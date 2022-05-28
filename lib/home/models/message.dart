@@ -10,4 +10,12 @@ class Message {
     required this.senderType,
     required this.senderId,
   });
+
+  factory Message.fromJSON(Map<String, dynamic> json) {
+    return Message(
+      text: json["text"]!,
+      senderType: json["senderId"] == "server" ? Sender.server : Sender.other,
+      senderId: json["senderId"]!,
+    );
+  }
 }

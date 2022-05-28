@@ -9,7 +9,7 @@ class ConnectionBloc extends Bloc<ConnEvent, ConnState> {
     OptionBuilder().setTransports(['websocket']).build(),
   );
 
-  ConnectionBloc() : super(Connecting()) {
+  ConnectionBloc(ConnState state) : super(state) {
     on<Connect>(_onConnect);
     on<Disconnect>(_onDisconnect);
     on<_Connecting>((_, Emitter emit) => emit(Connecting()));
@@ -21,6 +21,8 @@ class ConnectionBloc extends Bloc<ConnEvent, ConnState> {
     _socket.onDisconnect((_) => add(_Disconnected()));
     _socket.onError((err) => add(_ConnectionError()));
     _socket.onReconnectAttempt((_) => add(_Connecting()));
+
+    add(Connect());
   }
 
   @override
@@ -45,5 +47,9 @@ class ConnectionBloc extends Bloc<ConnEvent, ConnState> {
 
   void removeListener(String eventName) {
     _socket.off(eventName);
+  }
+
+  void emitEvent(String eventName, {dynamic data, Function? ack}) {
+    _socket.emitWithAck(eventName, data, ack: ack);
   }
 }

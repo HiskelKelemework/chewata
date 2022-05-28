@@ -25,7 +25,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
   @override
   void initState() {
     final connBloc = BlocProvider.of<ConnectionBloc>(context);
-    waitingRoomBloc = WaitingRoomBloc(connBloc);
+    waitingRoomBloc = WaitingRoomBloc(connBloc, widget.room.id);
     super.initState();
   }
 
@@ -73,6 +73,11 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
                       child: TextField(
                         controller: msgController,
                         decoration: const InputDecoration(
+                          isCollapsed: true,
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 8,
+                          ),
                           border: OutlineInputBorder(),
                         ),
                         onSubmitted: _sendMsg,
@@ -81,7 +86,7 @@ class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
                     const SizedBox(width: 10),
                     IconButton(
                       onPressed: () => _sendMsg(msgController.text),
-                      icon: const Icon(Icons.send),
+                      icon: const Icon(Icons.send, color: Colors.blue),
                     ),
                   ],
                 ),
